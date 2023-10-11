@@ -13,9 +13,9 @@ import { useStaticQuery, graphql } from "gatsby";
 
 // APP
 import { useNode } from "../utils/hu.tsx";
-import { ButtonCodeNav } from "../components/hc.tsx";
-import { RegionContext } from "./../context";
+import { RegionContext } from "../context.tsx";
 import { get_css_value } from "../utils/hu.tsx";
+import { MarkdownHtml, LogoBunabet, NavCellBox, ButtonNav } from "../components/hc.tsx";
 
 // need to define properly the any... it's very too much and very lazy !
 interface Props {
@@ -40,24 +40,22 @@ const style_subtitles = {
   marginBottom: 42,
 }
 const question_styles = {
-  marginLeft: 24,
+  // marginLeft: 24,
   marginBottom: -8,
 }
 
-export const RenderHome: FC<Props> =() => {
+export const RenderOpening: FC<Props> =() => {
   const data = useStaticQuery(
     graphql`
       query {
-        allMarkdownRemark(filter: {frontmatter: {categorie: {eq: "home"}}}) {
+        allMarkdownRemark(filter: {frontmatter: {categorie: {eq: "opening"}}}) {
           edges {
             node {
               frontmatter {
-                title
-                subtitle
-                message
                 misc
                 lang
               }
+              html
             }
           }
         }
@@ -65,16 +63,15 @@ export const RenderHome: FC<Props> =() => {
     `
   )
   const { lang } = useContext(RegionContext);
-  const {frontmatter} = useNode(data, lang);
+  console.log("lang", lang);
+  const {frontmatter, html} = useNode(data, lang);
   const info = frontmatter;
 
   return <>
-      <h1 style={style_titles}>{info.title}</h1>
-      <h2 style={style_subtitles}>{info.subtitle}</h2>
-      <h3 style={question_styles}>{info.message}</h3>
+      <LogoBunabet style={{paddingTop: '1em'}}/>
+      <MarkdownHtml html={html} />
       <p>
-        {/* <ButtonCodeNav what={info.misc} to="/contact"/> */}
-        <ButtonCodeNav what={info.misc} href="https://cafe-366.myshopify.com/"/>
+        <ButtonNav what={info.misc} href="https://cafe-366.myshopify.com"/>
       </p>
   </>
 }

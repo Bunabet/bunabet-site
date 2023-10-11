@@ -7,8 +7,19 @@ message: ""
 misc: ""
 lang: "fr"
 ---
-# À Propos
+## Pourquoi Buna Bet ?
+En Éthiopie, berceau du café, buna bet est la maison où l’on se retrouve pour déguster un café.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Pourquoi Café 366 ?
+Car il y a quelques années, Leatitia et Stanislas ont entrepris un long voyage autour du monde du café. Et ce voyage dura 366 jours.
+
+## BOUTIQUE
+Cafés en grains et moulus
+Accessoires café : filtre, machine, moulin...
+Petite épicerie fine, miel, caramel, Komboucha, limonades
+
+## COFFEE-SHOP
+Dégustation sur place et à emporter de café et de pâtisserie de chez Jojo and Co et aussi les bons croissants de chez Bulle.
+Et aussi les boissons de notre boutique.
 
 

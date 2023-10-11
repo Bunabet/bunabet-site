@@ -1,7 +1,7 @@
 /**
  * GUI
  * 2023-2023
- * v 0.0.2
+ * v 0.0.4
  * 
  * */
 // REACT
@@ -9,7 +9,7 @@ import React, { FC, ReactNode, useState } from "react";
 import { useContext } from "react";
 // GATSBY
 import { navigate } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image"
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 // APP
 import tree from "./../../medias/tree.json";
 import { Box } from "./hc";
@@ -27,27 +27,58 @@ interface DesignProps {
 ///////////////////
 interface ButtonProps {
   what: string;
-  to: string;
+  to?: string;
+  href?: string;
 }
 
 //////////////////////////
 // NAVIGATION
 ////////////////////////
 
+// ButtonNav
+////////////////
+// in progress
+///////////////
+export const ButtonNav : FC<ButtonProps> = ({what, to, href}) => {
+  let button_style = {
+    color: get_css_value("--color_text_light"),
+    padding: 4,
+    background: get_css_value("--color_button"),
+    borderRadius: 4,
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    fontFamily: get_css_value("--font_title"),
+    letterSpacing: "0.05em",
+    fontVariantCaps: "all-petite-caps",
+    textDecoration: 'none',
+    width: "max-content",
+  }
+
+  return (
+    <NavCell to={to} href={href} style={button_style}>
+        {what}
+    </NavCell>
+  )
+}
+
 
 // ButtonCodeNav
 ////////////////
 // in progress
 ///////////////
-export const ButtonCodeNav : FC<ButtonProps> = ({what, to}) => {
+export const ButtonCodeNav : FC<ButtonProps> = ({what, to, href}) => {
   let button_style = {
-  // const button_style = {
-    color: "yellow",
+    color: get_css_value("--color_text_light"),
     padding: 4,
-    background: "magenta",
+    background: get_css_value("--color_button"),
     fontSize: "1.25rem",
     borderRadius: 4,
     cursor: "pointer",
+    fontFamily: get_css_value("--font_title"),
+    letterSpacing: "0.05em",
+    fontVariantCaps: "all-petite-caps",
+    textDecoration: 'none',
+    width: "max-content",
   }
 
   const [is, set_is] = useState(false);
@@ -56,13 +87,13 @@ export const ButtonCodeNav : FC<ButtonProps> = ({what, to}) => {
       // button_style.background = "cyan";
       set_is(false);
     } else {
-      // button_style.background = "magenta";
+      // button_style.background = "";
       set_is(true);
     }
   }
 
   return (
-    <NavCell to={to}>
+    <NavCell to={to} href={href}>
         <code onClick={() => toggle_button()} style={button_style}>{what}</code>
     </NavCell>
   )
@@ -75,52 +106,75 @@ export const ButtonCodeNav : FC<ButtonProps> = ({what, to}) => {
 /////////////
 interface NavProps extends DesignProps {
   children ?: any;
-  to: string;
+  to?: string;
+  href?: string;
   className?: string;
   style?: any;
 }
 
 // NavCell
 //////////
-export const NavCell: FC<NavProps> = ({to, className, style, children}) => {
+export const NavCell: FC<NavProps> = ({to, href, className, style, children}) => {
 	function mouse_click(event: { preventDefault: () => void; }) {
 		event.preventDefault();
-		navigate(to);
+    if(to !== undefined) {
+      navigate(to);
+    }
 	}
+  if(href !== undefined) {
+    return <div className={className} style={style}>
+      <a href={href} target="_blank" rel="noopener noreferrer" style={style}>{children}</a>  
+      </div>
+  } else 
 	return <div className={className} style={style} onClick={mouse_click}>{children}</div>
 }
 
+
+
+
 // NavCellBox
 //////////////
-export const NavCellBox: FC<NavProps> = ({to, className_box, style_box, className_cell, style_cell, children}) =>{
+export const NavCellBox: FC<NavProps> = ({to, href, className_box, style_box, className_cell, style_cell, children}) =>{
 	return <Box className={className_box} style={style_box}>
-			<NavCell to={to} className={className_cell} style={style_cell}>{children}</NavCell>
+			<NavCell to={to} href={href} className={className_cell} style={style_cell}>{children}</NavCell>
 		</Box>
 }
 
 
 
-// GO HOME
+// NavCellBoxImg
 //////////////////
-export const GoHome: FC<NavProps> = ({className_box, style_box, className_cell, style_cell}) => {
-	let size = get_css_value("--height_header_cell");
+interface NavImgProps extends NavProps {
+  img : IGatsbyImageData;
+  alt: string;
+}
+
+
+export const NavCellBoxImg: FC<NavImgProps> = ({img, alt, to, href, className_box, style_box, className_cell, style_cell}) => {
+  let size = get_css_value("--height_header_cell");
 	if(size === undefined) {
 		size = "100px";
 	}
   size = size.slice(0,-2);
 
 	return (
-    <NavCellBox to="/" className_box={className_box} style_box={style_box} className_cell={className_cell} style_cell={style_cell}>
-      <div style={{maxWidth: size+"px", maxHeight:size+"px"}}>
-        <StaticImage 	src="./../../medias/home.png" alt="Home" 
-                      placeholder="blurred" layout="constrained"
-                      // imgStyle={img_style} 
-                      />
+    <NavCellBox to={to} href={href} className_box={className_box} style_box={style_box} className_cell={className_cell} style_cell={style_cell}>
+      <div style={{maxWidth: size+"px", maxHeight: size+"px"}}>
+      <GatsbyImage image={img} alt={alt} placeholder="blurred" layout="constrained"/>
       </div>
 	  </NavCellBox>
   )
 }
 
+interface ImgGuiProps {
+  img: IGatsbyImageData;
+  alt: string;
+}
+
+export const ImgGui: FC<ImgGuiProps> =({img, alt}) => {
+  return <GatsbyImage image={img} alt={alt} placeholder="blurred" layout="constrained"/>
+
+}
 
 /////////////////////////////
 /////////////////////////////
