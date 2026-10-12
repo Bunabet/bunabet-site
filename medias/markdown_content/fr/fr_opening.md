@@ -22,7 +22,7 @@ Vendredi 8h00 – 19h00
 
 Samedi 9h01 – 18h59
 
-Dimanche 9h02 – 13h58
+Dimanche 9h02 – 17h58
 
 Jours fériés ouvert selon affinité...
 

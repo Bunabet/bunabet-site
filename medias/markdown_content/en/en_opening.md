@@ -22,7 +22,7 @@ Friday 8:00 am – 7:00 pm
 
 Samedi 9:01 am – 6:59 pm
 
-Sunday 9:02 am – 1:58 pm
+Sunday 9:02 am – 5:58 pm
 
 Public holidays open depending on affinity...
 
